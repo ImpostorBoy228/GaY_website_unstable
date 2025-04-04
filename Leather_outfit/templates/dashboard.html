@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Профиль</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>Привет, {{ user.username }}!</h1>
+        <p>Email: {{ user.email }}</p>
+
+        {% if user.avatar %}
+            <img src="{{ user.avatar }}" alt="Avatar" class="user-info-img">
+        {% endif %}
+
+        <br><br>
+        <a href="{{ url_for('logout') }}" class="menu-button">Выйти</a>
+
+    </div>
+    <h1>Чат с ИИ</h1>
+    <form method="POST">
+        <textarea name="message" placeholder="Напишите сообщение" rows="4" cols="50"></textarea><br><br>
+        <button type="submit">Отправить</button>
+    </form>
+
+    {% if user_message %}
+        <h3>Ваш вопрос:</h3>
+        <p>{{ user_message }}</p>
+
+        <h3>Ответ ИИ:</h3>
+        <p>{{ model_response }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <input type="text" name="user_input" placeholder="Введите ваши интересы..." required>
+        <button type="submit">Отправить</button>
+    </form>
+
+    <div id="response">
+
+
+</body>
+</html>

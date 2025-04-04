@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запрос на Поставку</title>
+    <link rel="stylesheet" href="static/styles.css">
+    <style type="text/css">
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+
+        header h1 {
+            text-align: center;
+        }
+
+        nav {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        input, select, button {
+            padding: 10px;
+            margin: 5px;
+            width: 300px;
+            font-size: 16px;
+        }
+
+        button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+    <script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const actionSelect = document.getElementById('action');
+        const queryField = document.getElementById('query').parentElement;
+        const videoUrlField = document.getElementById('video_url').parentElement;
+        const countField = document.getElementById('count').parentElement;
+        const minViewsField = document.getElementById('min_views').parentElement;
+        const minDurationField = document.getElementById('min_duration').parentElement;
+        const maxDurationField = document.getElementById('max_duration').parentElement;
+        const massLinksField = document.getElementById('mass_links').parentElement;
+
+        function toggleFields() {
+            const action = actionSelect.value;
+
+            // Поиск и загрузка
+            queryField.style.display = (action === 'search_and_download') ? 'block' : 'none';
+            countField.style.display = (action === 'search_and_download' || action === 'mass_download') ? 'block' : 'none';
+            minViewsField.style.display = (action === 'search_and_download' || action === 'mass_download') ? 'block' : 'none';
+            minDurationField.style.display = (action === 'search_and_download' || action === 'mass_download') ? 'block' : 'none';
+            maxDurationField.style.display = (action === 'search_and_download' || action === 'mass_download') ? 'block' : 'none';
+
+            // Загрузка одного видео
+            videoUrlField.style.display = (action === 'single_video') ? 'block' : 'none';
+
+            // Массовая загрузка ссылок
+            massLinksField.style.display = (action === 'mass_download') ? 'block' : 'none';
+        }
+
+        actionSelect.addEventListener('change', toggleFields);
+        toggleFields(); // Инициализация при загрузке страницы
+    });
+    </script>
+</head>
+<body>
+    <header>
+        <h1>Запрос на Поставку</h1>
+    </header>
+
+    <nav>
+        <a href="{{ url_for('index') }}">Главная</a>
+    </nav>
+
+    <form method="POST">
+        <div>
+            <label for="action">Действие:</label>
+            <select name="action" id="action">
+                <option value="search_and_download">Поиск и загрузка</option>
+                <option value="single_video">Загрузить одно видео</option>
+                <option value="mass_download">Массовая загрузка</option>
+            </select>
+        </div>
+
+        <div>
+            <label for="query">Поиск по запросу:</label>
+            <input type="text" name="query" id="query" placeholder="Введите запрос" value="{{ request.form.get('query', '') }}">
+        </div>
+
+        <div>
+            <label for="video_url">URL видео:</label>
+            <input type="text" name="video_url" id="video_url" placeholder="Введите URL видео">
+        </div>
+
+        <div>
+            <label for="mass_links">Массовая загрузка ссылок:</label>
+            <textarea name="mass_links" id="mass_links" placeholder="Введите ссылки по одной в строке" rows="6"></textarea>
+        </div>
+
+        <div>
+            <label for="count">Количество видео для загрузки:</label>
+            <input type="number" name="count" id="count" value="10">
+        </div>
+
+        <div>
+            <label for="min_views">Минимальное количество просмотров:</label>
+            <input type="number" name="min_views" id="min_views" value="500000">
+        </div>
+
+        <div>
+            <label for="min_duration">Минимальная длительность видео (в секундах):</label>
+            <input type="number" name="min_duration" id="min_duration" value="0">
+        </div>
+
+        <div>
+            <label for="max_duration">Максимальная длительность видео (в секундах):</label>
+            <input type="number" name="max_duration" id="max_duration" value="3600">
+        </div>
+
+        <button type="submit">Выполнить</button>
+    </form>
+</body>
+</html>

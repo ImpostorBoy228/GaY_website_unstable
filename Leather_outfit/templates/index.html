@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Без негатива, гайс</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <script>
+        // Получаем элементы
+        const menuButton = document.getElementById("menuToggle");
+        const sideMenu = document.querySelector(".side-menu");
+        const closeMenuButton = document.getElementById("closeMenu");
+
+        // Открытие меню
+        menuButton.addEventListener("click", function() {
+            sideMenu.classList.add("open");
+        });
+
+        // Закрытие меню
+        closeMenuButton.addEventListener("click", function() {
+            sideMenu.classList.remove("open");
+        });
+        function toggleMenu() {
+            const menu = document.querySelector('.side-menu');
+            menu.classList.toggle('open'); // Добавляет/удаляет класс для анимации
+        }
+    </script>
+    <style type="text/css">
+        /* Общие стили для всех страниц */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Хедер (с кнопкой для меню) */
+        header {
+            background: #1f1f1f;
+            padding: 1rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        .menu-button {
+            background: #333;
+            color: #fff;
+            border: none;
+            padding: 0.8rem 1.5rem; /* Установим фиксированные отступы */
+            font-size: 2rem;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+            width: auto; /* Убираем свойство ширины на всю страницу */
+        }
+
+        .menu-button:hover {
+            background: #444;
+        }
+
+        /* Боковое меню (скрыто по умолчанию) */
+        .side-menu {
+            position: fixed;
+            top: 0;
+            left: -250px; /* Скрыто за пределами экрана */
+            height: 100%;
+            width: 250px;
+            background: #1f1f1f;
+            box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5);
+            overflow-y: auto;
+            transition: left 0.3s ease;
+            padding-top: 60px;
+        }
+
+        .side-menu.open {
+            left: 0; /* Показываем меню */
+        }
+
+        .side-menu ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .side-menu li {
+            margin: 1rem 0;
+        }
+
+        .side-menu a {
+            color: #fff;
+            padding: 1rem;
+            display: block;
+            font-size: 1.2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background 0.3s ease;
+        }
+
+        .side-menu a:hover {
+            background: #333;
+        }
+
+        /* Кнопка закрытия меню */
+        .side-menu .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #fff;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        /* Основной контент */
+        main {
+            flex-grow: 1;
+            padding: 2rem;
+            transition: margin-left 0.3s ease;
+        }
+
+        main.menu-open {
+            margin-left: 250px; /* Когда меню открыто, контент сдвигается */
+        }
+
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            header {
+                padding: 1rem;
+                text-align: center;
+            }
+
+            .side-menu {
+                width: 200px;
+            }
+
+            .menu-button {
+                font-size: 1.8rem;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+
+    <header>
+
+        <button class="menu-button" onclick="toggleMenu()">&#9776;</button>
+        <h1>Fuck you, leatherman!</h1>
+        <form action="/" method="GET">
+            <input type="text" name="query" placeholder="Поиск по видео..." class="search-input" value="{{ request.args.get('query', '') }}">
+            <button type="submit" class="search-button">Искать</button>
+        </form>
+
+        {% if current_user.is_authenticated %}
+            <div class="user-info">
+                <img src="{{ current_user.avatar }}" alt="Аватарка" width="50" height="50">
+                <a href="{{ url_for('dashboard') }}">{{ current_user.username }}</a>
+            </div>
+        {% else %}
+            <a href="{{ url_for('login') }}" class="menu-button">Войти</a>
+        {% endif %}
+    </header>
+
+
+    <div class="side-menu">
+        <button class="close-btn" onclick="toggleMenu()">&times;</button> <!-- Кнопка для закрытия меню -->
+        <ul>
+            <li><a href="{{ url_for('zapros_na_postavku') }}">Запрос на поставку</a></li>
+            <li><a href="#">иди нахуй</a></li>
+            <li><a href="#">иди нахуй</a></li>
+            <li><a href="#">иди нахуй</a></li>
+        </ul>
+    </div>
+
+    <main>
+        <div class="video-grid">
+            {% for video in videos %}
+                <div class="video-card">
+                    <a href="{{ url_for('video_detail', video_id=video.id) }}">
+                        <img src="{{ video.thumbnail_path if video.thumbnail_path else url_for('static', filename='default-thumbnail.webp') }}" alt="Превью видео" class="video-thumbnail">                        <h3 class="video-title">{{ video.title }}</h3>
+                    </a>
+                </div>
+            {% else %}
+                <p class="no-videos">Видео не найдено.</p>
+            {% endfor %}
+        </div>
+    </main>
+
+
+    <footer>
+        <p>&copy; ImpostorBoy</p>
+    </footer>
+
+    <script>
+        document.getElementById("menuButton").onclick = function() {
+            document.getElementById("sideMenu").style.width = "250px";
+        }
+
+        document.getElementById("closeBtn").onclick = function() {
+            document.getElementById("sideMenu").style.width = "0";
+        }
+    </script>
+</body>
+</html>

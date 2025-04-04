@@ -1,0 +1,391 @@
+/* Общие стили для всех страниц */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    height: 100%;
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a1a;
+    color: #e0e0e0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+a {
+    color: #4a90e2;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #6ba8eb;
+}
+
+/* Хедер (общий для index и video) */
+header {
+    background: #2d2d2d;
+    padding: 1rem 2rem;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+header h1 {
+    color: #ff4757;
+    font-size: 1.8rem;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+}
+
+/* Боковое меню (index) */
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1000;
+    top: 0;
+    left: 0;
+    background: #333;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0 1rem;
+}
+
+.side-menu li {
+    margin: 1rem 0;
+}
+
+.side-menu a {
+    color: #fff;
+    padding: 0.5rem;
+    display: block;
+    border-radius: 4px;
+}
+
+.side-menu a:hover {
+    background: #444;
+}
+
+.menu-button, .close-btn {
+    background: #4a4a4a;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+.menu-button:hover, .close-btn:hover {
+    background: #5e5e5e;
+}
+
+/* Формы (общие для login/register/zapros) */
+.container, form {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background: #2d2d2d;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+input, select, textarea, button {
+    width: 100%;
+    padding: 0.8rem;
+    margin: 0.5rem 0;
+    border: 1px solid #444;
+    border-radius: 4px;
+    background: #3d3d3d;
+    color: #fff;
+}
+
+button[type="submit"] {
+    background: #ff4757;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+button[type="submit"]:hover {
+    background: #ff6b81;
+}
+
+/* Видео-страница (video.html) */
+.video-detail {
+    background: #2d2d2d;
+    margin: 2rem auto;
+    padding: 2rem;
+    border-radius: 8px;
+}
+
+.video-player {
+    width: 100%;
+    height: 60vh;
+    background: #000;
+    border-radius: 8px;
+}
+
+.video-stats {
+    margin: 1.5rem 0;
+    padding: 1rem;
+    background: #383838;
+    border-radius: 6px;
+}
+
+.video-stats strong {
+    color: #ff4757;
+}
+
+.back-link {
+    display: inline-block;
+    padding: 0.8rem 1.5rem;
+    background: #4a4a4a;
+    border-radius: 5px;
+    margin-top: 1rem;
+}
+
+/* Dashboard (profile) */
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin: 1rem 0;
+}
+
+.user-info-img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    border: 3px solid #ff4757;
+}
+
+/* Форма запроса на поставку (zapros_na_postavku.html) */
+#action {
+    background: #3d3d3d;
+    color: #fff;
+    border: 1px solid #444;
+}
+
+#mass_links {
+    min-height: 150px;
+    resize: vertical;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .video-player {
+        height: 40vh;
+    }
+
+    .container, form {
+        margin: 1rem;
+        padding: 1rem;
+    }
+}
+
+/* Анимации */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.container, .video-detail {
+    animation: fadeIn 0.5s ease-in;
+}
+
+/* Футер (общий для всех) */
+footer {
+    background: #2d2d2d;
+    color: #888;
+    text-align: center;
+    padding: 1.5rem;
+    margin-top: auto;
+    box-shadow: 0 -2px 8px rgba(0,0,0,0.3);
+}
+
+/* Сообщения об ошибках/успехе */
+ul {
+    list-style: none;
+    color: #ff4757;
+    margin: 1rem 0;
+    padding: 0;
+}
+
+/* Иконки и мелкие элементы */
+::placeholder {
+    color: #999;
+}
+
+input:focus, textarea:focus {
+    outline: 2px solid #ff4757;
+    border-color: transparent;
+}
+
+
+body {
+    background-color: #1F2525;
+    color: #fff;
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+header, footer {
+    text-align: center;
+    padding: 15px 0;
+    background-color: #000;
+}
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.video-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 16px;
+    padding: 20px;
+}
+
+.video-card {
+    background-color: #2A2A2A;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.7);
+    text-align: center;
+}
+
+.video-thumbnail {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+}
+
+.video-title {
+    margin: 10px 0;
+    font-size: 16px;
+    color: #fff;
+}
+
+.menu-button, .search-button {
+    background-color: #1F2525;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+    padding: 8px 16px;
+    cursor: pointer;
+}
+
+.menu-button:hover, .search-button:hover {
+    background-color: #333;
+}
+
+.search-input {
+    padding: 8px;
+    width: 60%;
+    background-color: #2A2A2A;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 4px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.user-info img {
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s;
+    padding-top: 60px;
+}
+
+.side-menu a {
+    padding: 10px 20px;
+    display: block;
+    color: #fff;
+    text-decoration: none;
+}
+
+.side-menu .close-btn {
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 30px;
+    background: none;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.no-videos {
+    text-align: center;
+    margin-top: 20px;
+}
+
+
+
+
+
+/* Общий стиль для кнопки */
+.menu-button {
+    background-color: #1F2525;
+    color: #fff;
+    border: 2px solid #fff;
+    border-radius: 0;
+    padding: 10px;
+    font-size: 30px; /* Размер для символа гамбургера */
+    cursor: pointer;
+    position: absolute;
+    top: 20px;
+    left: 20px; /* Позиционируем кнопку в левом верхнем углу */
+    z-index: 1001; /* Убедитесь, что кнопка поверх контента */
+}
+
+/* Стили для бокового меню */
+.side-menu {
+    height: 100%;
+    width: 0; /* Начальная ширина меню — 0 */
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #111;
+    overflow-x: hidden;
+    transition: 0.3s ease-in-out; /* Плавное открытие */
+    padding-top: 60px;
+    z-index: 1000; /* Скрыто за кнопкой */
+}
+

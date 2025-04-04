@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ video.title }}</title>
+    <style>
+        /* Общие стили */
+        html, body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #1F2525; /* Темный фон */
+            color: #ddd; /* Светлый цвет текста */
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+        }
+        /* Заголовок */
+        header {
+            background-color: #333333;
+            padding: 20px 0;
+            text-align: center;
+            color: #fff;
+        }
+        /* Основной контент */
+        main {
+            flex-grow: 1;
+            padding: 20px;
+        }
+        /* Контейнер видео */
+        .video-detail {
+            background-color: #333333;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            width: 80%;
+        }
+        /* Видео контейнер */
+        .video-container {
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .video-player {
+            width: 100%;
+            max-width: 800px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+        }
+        /* Описание видео */
+        .video-description {
+            color: #bbb;
+            font-size: 16px;
+            margin: 20px 0;
+            line-height: 1.6;
+        }
+        /* Статистика видео */
+        .video-stats {
+            color: #bbb;
+            font-size: 14px;
+            margin-bottom: 20px;
+        }
+        .video-stats p {
+            margin: 5px 0;
+        }
+        .video-stats strong {
+            color: #fff;
+        }
+        /* Социальные ссылки */
+        .social-links {
+            margin-bottom: 20px;
+        }
+        .social-links a {
+            color: #fff;
+            margin-right: 10px;
+            text-decoration: none;
+            background-color: #444;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .social-links a:hover {
+            background-color: #666;
+        }
+        /* Кнопка возврата */
+        .back-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #444;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            text-align: center;
+            transition: background-color 0.3s;
+        }
+        .back-link:hover {
+            background-color: #666;
+        }
+        /* Подвал */
+        footer {
+            background-color: #333333;
+            color: #fff;
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            width: 100%;
+            margin-top: auto;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>{{ video.title }}</h1>
+    </header>
+
+    <main>
+        <div class="video-detail">
+            <!-- Видео плеер -->
+            <section class="video-container">
+                <video class="video-player" controls>
+                    {% if video.file_path_webm %}
+                        <source src="{{ url_for('stream_video', filename=video.file_path_webm) }}" type="video/webm">
+                    {% elif video.file_path_mp4 %}
+                        <source src="{{ url_for('stream_video', filename=video.file_path_mp4) }}" type="video/mp4">
+                    {% elif video.file_path_f616 %}
+                        <source src="{{ url_for('stream_video', filename=video.file_path_f616) }}" type="video/mp4">
+                    {% else %}
+                        <p>Видео недоступно.</p>
+                    {% endif %}
+                    Ваш браузер не поддерживает элемент video.
+                </video>
+            </section>
+
+            <!-- Описание -->
+            <section class="video-description">
+                <p>{{ video.description }}</p>
+            </section>
+
+            <!-- Статистика -->
+            <section class="video-stats">
+                <p><strong>Легенда:</strong> {{ video.uploader }}</p>
+                <p><strong>Slaves посмотрели:</strong> {{ '{:,}'.format(video.views) }}</p>
+                <p><strong>Когда совершился подвиг:</strong> {{ video.upload_date }}</p>
+            </section>
+
+            <!-- Кнопка возврата -->
+            <a href="{{ url_for('index') }}" class="back-link">Get down your needs</a>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 All rights reserved. Dark Lord's Domain.</p>
+    </footer>
+</body>
+</html>
